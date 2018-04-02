@@ -8,74 +8,86 @@ func show(){
     }
 }
 
-func bubble() {
+func bubble(array: [Int]) -> [Int] {
+    var arrayResult = array
     var temp: Int = 0
-    for i in 0 ... array.count-1 {
-        for j in i ... array.count-1 {
-            if array[j] < array[i] {
-                temp = array[i]
-                array[i] = array[j]
-                array[j] = temp
+    for i in 0 ... arrayResult.count-1 {
+        for j in i ... arrayResult.count-1 {
+            if array[j] < arrayResult[i] {
+                temp = arrayResult[i]
+                arrayResult[i] = arrayResult[j]
+                arrayResult[j] = temp
             }
         }
     }
+    return arrayResult
 }
 
-func insert(){
+func insert(array: [Int]) -> [Int] {
+    var arrayResult = array
+
     var key = 0
     var j = 0
     
-    for i in 1 ... array.count-1 {
-        key = array[i]
+    for i in 1 ... arrayResult.count-1 {
+        key = arrayResult[i]
         j = i-1
         
-        while j > 0 && array[j] > key {
-            array[j+1] = array[j]
+        while j >= 0 && arrayResult[j] > key {
+            arrayResult[j+1] = arrayResult[j]
             j = j-1
         }
-        array[j+1] = key
+        arrayResult[j+1] = key
     }
+    return arrayResult
 }
 
-func select(){
+func select(array: [Int]) -> [Int] {
+    var arrayResult = array
+
     var temp = 0
     var indexMin = 0
-    for i in 1 ... array.count-2 {
+    for i in 0 ... arrayResult.count-2 {
         indexMin = i+1
-        for j in i ... array.count-1 {
-            if array[j] < array[indexMin] {
+        for j in i ... arrayResult.count-1 {
+            if arrayResult[j] < arrayResult[indexMin] {
                 indexMin = j
             }
-            temp = array[i]
-            array[i] = array[indexMin]
-            array[indexMin] = temp
+            temp = arrayResult[i]
+            arrayResult[i] = arrayResult[indexMin]
+            arrayResult[indexMin] = temp
         }
     }
+    return arrayResult
 }
 
-func quick(left: Int = 0,right: Int = array.count-1){
+
+func quick(left: Int = 0,right: Int = array.count-1,array: [Int]) -> [Int] {
+    var arrayResult = array
     var m = left
     var k = right
-    let center = ( array[(m+k) / 2]  )
+    let center = ( arrayResult[(m+k) / 2]  )
     var buf = 0
     repeat {
-        while array[m] < center { m += 1 }
-        while array[k] > center { k -= 1 }
+        while arrayResult[m] < center { m += 1 }
+        while arrayResult[k] > center { k -= 1 }
         if m <= k {
-            buf = array[m]
-            array[m] = array[k]
-            array[k] = buf
+            buf = arrayResult[m]
+            arrayResult[m] = arrayResult[k]
+            arrayResult[k] = buf
             m += 1
             k -= 1
         }
     } while m < k
     
     if left < k {
-        quick(left: left,right: k)
+        arrayResult = quick(left: left,right: k, array: arrayResult)
     }
     if m < right {
-        quick(left: m,right: right)
+        arrayResult = quick(left: m,right: right, array: arrayResult)
     }
+    
+    return arrayResult
 }
 
 func mergeSort(_ array: [Int]) -> [Int] {
@@ -130,8 +142,8 @@ func merge(_ left: [Int], _ right: [Int]) -> [Int] {
     return orderedArray
 }
 
-array = mergeSort(array)
-//show()
+array = quick(array: array)
+show()
 
 
 

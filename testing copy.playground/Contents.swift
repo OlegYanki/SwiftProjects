@@ -1,19 +1,20 @@
-func someFunctionThatTakesAClosure(closure: () -> Void,str: String) {
-    print(1)
-    closure()
-    print(2)
+var customersInLine = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+print(customersInLine.count)
+// Выведет "5"
+
+let customerProvider = { customersInLine.remove(at: 0) }
+print(customersInLine.count)
+// Выведет "5"
+
+print("Now serving \(customerProvider())!")
+// Выведет "Now serving Chris!"
+print(customersInLine.count)
+// Выведет "4"
+
+let myFunc = {
+//    customersInLine.append("Oleg")
+//    print(customersInLine)
+    return "12"
 }
 
-// Вот как вы вызываете эту функцию без использования последующего замыкания:
-
-someFunctionThatTakesAClosure(closure: {
-    print("myFunc")
-},str: "string")
-
-// Вот как вы вызываете эту функцию с использованием последующего замыкания:
-
-someFunctionThatTakesAClosure(str: "string2") {
-    // тело последующего замыкания
-    print("myFUnc2")
-}
 
