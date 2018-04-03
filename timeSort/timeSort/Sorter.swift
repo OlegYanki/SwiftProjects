@@ -223,7 +223,7 @@ final class Sorter {
 extension Array {
     
     static func makeList(count:Int, range: Int ) -> [Int] {
-        var result:[Int] = []
+        var result: [Int] = []
         for _ in 0..<count {
             result.append(Int(arc4random_uniform(UInt32(range)) + 1))
         }
